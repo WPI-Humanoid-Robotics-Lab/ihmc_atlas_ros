@@ -4,4 +4,4 @@ vmConfig:
   heapSize: 4g
   mainMethod: us.ihmc.atlas.AtlasROSAPINetworkProcessor
 dependencies:
-- us.ihmc:Atlas:0.9.0
+- us.ihmc:atlas:0.11.0
