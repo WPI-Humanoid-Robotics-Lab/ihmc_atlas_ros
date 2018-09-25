@@ -2,6 +2,6 @@
 programArgs: []
 vmConfig:
   heapSize: 4g
-  mainMethod: us.ihmc.atlas.AtlasROSAPINetworkProcessor
+  mainMethod: us.ihmc.atlas.RemoteAtlasVisualizer
 dependencies:
 - us.ihmc:atlas:0.11.0
