@@ -1,10 +1,9 @@
 <launch>
 
   <!-- Valid Sensor types are SL, S7, S7S, S21, and BCAM -->
-
-  <arg name="ip_address" default="10.66.171.21" />
+  <arg name="ip_address" default="192.168.132.103" />
   <arg name="namespace"  default="multisense" />
-  <arg name="mtu"        default="7200" />
+  <arg name="mtu"        default="7500" />
   <arg name="sensor"     default="SL" />
   <arg name="launch_robot_state_publisher" default="true" />
 
@@ -34,5 +33,12 @@
       <remap from="camera_info" to="/$(arg namespace)/left/image_rect_color/camera_info" />
       <remap from="robot_description" to="/$(arg namespace)/robot_description" />
   </node>
+
+   <node name="set_motor_speed" pkg="dynamic_reconfigure" type="dynparam"  args="set --timeout=10 /multisense motor_speed 2.5" />
+    <node name="set_resolution" pkg="dynamic_reconfigure" type="dynparam"  args="set --timeout=10 /multisense resolution 1024x544x64" />
+    <node name="transform_provider" pkg="transform_provider" type="transform_provider_node" />
+
+
+    <node name="multisense_static_tf_br" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0  multisense/head_root multisense/head 0.1" />
 
 </launch>
