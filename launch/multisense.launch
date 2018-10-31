@@ -36,7 +36,7 @@
 
    <node name="set_motor_speed" pkg="dynamic_reconfigure" type="dynparam"  args="set --timeout=10 /multisense motor_speed 2.5" />
     <node name="set_resolution" pkg="dynamic_reconfigure" type="dynparam"  args="set --timeout=10 /multisense resolution 1024x544x64" />
-    <node name="transform_provider" pkg="transform_provider" type="transform_provider_node" />
+<!--    <node name="transform_provider" pkg="transform_provider" type="transform_provider_node" /> -->
 
 
     <node name="multisense_static_tf_br" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0  multisense/head_root multisense/head 0.1" />

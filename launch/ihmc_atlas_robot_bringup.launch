@@ -1,0 +1,13 @@
+<launch>
+
+    <node name="transform_provider" pkg="transform_provider" type="transform_provider_node" />
+
+    <include file="$(find ihmc_atlas_ros)/launch/ihmc_atlas_netProc.launch"/>
+
+    <group>
+        <machine name="cpu1" address="cpu1" default="true"/>
+        <include file="$(find ihmc_atlas_ros)/launch/multisense.launch"/>
+    </group>
+
+
+</launch>
