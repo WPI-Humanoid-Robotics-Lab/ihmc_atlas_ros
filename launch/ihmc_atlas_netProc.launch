@@ -1,23 +1,23 @@
 <launch>
     <param name="use_sim_time" value="false"/>
-    <arg name="use_local_build" default="false" />
+    <arg name="use_local_build" default="true" />
     <arg name="ihmc_network_file" default="$(find ihmc_atlas_ros)/configurations/IHMCNetworkParametersRobot.ini" />
+
     <arg name="description_model" default="$(find ihmc_atlas_ros)/urdf/atlas_v5_robotiq.urdf" />
     <arg name="ihmc_model" default="ATLAS_UNPLUGGED_V5_DUAL_ROBOTIQ" />
     <arg name="tf_prefix" default="NONE" />
-    <arg name="multisense_ip" default="192.168.132.103" />
-    <arg name="multisense_mtu" default="7500" />
 
-       <include file="$(find ihmc_ros_common)/launch/robot_description_common.launch">
+    <include file="$(find ihmc_ros_common)/launch/robot_description_common.launch">
         <arg name="robot_name" value="atlas" />
         <arg name="model_file" value="$(arg description_model)" />
     </include>
 
     <include file="$(find ihmc_atlas_ros)/launch/common/ihmc_atlas_params_common.launch" />
 
-        <node name="IHMCAtlasAPI" pkg="ihmc_ros_java_adapter" type="gradlew" args="runJava -Dus.ihmc.networkParameterFile=$(arg ihmc_network_file) -PuseLocal=$(arg use_local_build) -Pyaml=$(find ihmc_atlas_ros)/configurations/robot.yaml -PprogramArgs=-m,$(arg ihmc_model),--tfPrefix,$(arg tf_prefix)" required="true" output="screen" cwd="node">
+        <node   name="IHMCAtlasAPI" pkg="ihmc_ros_java_adapter" type="gradlew" 
+                args="runJava -Dus.ihmc.networkParameterFile=$(arg ihmc_network_file) -PuseLocal=$(arg use_local_build) -Pyaml=$(find ihmc_atlas_ros)/configurations/robot.yaml -PprogramArgs=-m,$(arg ihmc_model),--tfPrefix,$(arg tf_prefix)" 
+                required="true" output="screen" cwd="node">
     </node>
 
 </launch>
-
 

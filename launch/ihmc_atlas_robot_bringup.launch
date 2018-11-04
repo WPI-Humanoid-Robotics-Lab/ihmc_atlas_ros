@@ -1,12 +1,44 @@
 <launch>
+	<param name="use_sim_time" value="false"/>
+    <arg name="use_local_build" 	default="true" />
+    <arg name="ihmc_network_file" 	default="$(find ihmc_atlas_ros)/configurations/IHMCNetworkParametersRobot.ini" />
+
+    <arg name="description_model" 	default="$(find ihmc_atlas_ros)/urdf/atlas_v5_robotiq.urdf" />
+    <arg name="ihmc_model" 			default="ATLAS_UNPLUGGED_V5_DUAL_ROBOTIQ" />
+    <arg name="tf_prefix" 			default="NONE" />
+
+
+	<arg name="multisense_ip" default="192.168.132.103" />
+	<arg name="multisense_namespace"  default="multisense" />
+	<arg name="mtu"        default="7500" />
+	<arg name="sensor"     default="SL" />
+	<arg name="launch_robot_state_publisher" default="true" />
+
+
+
 
     <node name="transform_provider" pkg="transform_provider" type="transform_provider_node" />
 
-    <include file="$(find ihmc_atlas_ros)/launch/ihmc_atlas_netProc.launch"/>
+    <!-- Launching network processor cpu2 -->
+    <include file="$(find ihmc_atlas_ros)/launch/ihmc_atlas_netProc.launch">
+		<arg name="use_local_build" 	value="$(arg use_local_build)" />
+		<arg name="ihmc_network_file" 	value="$(arg ihmc_network_file)" />
 
+		<arg name="description_model" 	value="$(arg description_model)" />
+		<arg name="ihmc_model" 			value="$(arg ihmc_model)" />
+		<arg name="tf_prefix" 			value="$(arg tf_prefix)" />
+    </include>
+
+    <!-- Launching multisense on cpu1 -->
     <group>
         <machine name="cpu1" address="cpu1" default="true"/>
-        <include file="$(find ihmc_atlas_ros)/launch/multisense.launch"/>
+        <include file="$(find ihmc_atlas_ros)/launch/multisense.launch">
+			<arg name="ip_address" value="$(arg multisense_ip)" />
+			<arg name="namespace"  value="$(arg multisense_namespace)" />
+			<arg name="mtu"        value="$(arg mtu)" />
+			<arg name="sensor"     value="$(arg sensor)" />
+			<arg name="launch_robot_state_publisher" value="$(arg launch_robot_state_publisher)" />
+        </include>
     </group>
 
 
