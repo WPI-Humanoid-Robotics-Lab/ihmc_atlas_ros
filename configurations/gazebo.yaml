@@ -1,0 +1,7 @@
+!ihmc_ros_java_adapter
+programArgs: []
+vmConfig:
+  heapSize: 4g
+  mainMethod: us.ihmc.atlas.gazebo.GazeboControllerFactory
+dependencies:
+- us.ihmc:atlas:0.11.0
