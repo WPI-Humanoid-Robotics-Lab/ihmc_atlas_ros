@@ -1,0 +1,44 @@
+<launch>
+
+  <!-- Valid Sensor types are SL, S7, S7S, S21, and BCAM -->
+  <arg name="ip_address" default="192.168.132.103" />
+  <arg name="namespace"  default="multisense" />
+  <arg name="mtu"        default="7500" />
+  <arg name="sensor"     default="SL" />
+  <arg name="launch_robot_state_publisher" default="true" />
+
+  <!-- Robot state publisher -->
+  <group if = "$(arg launch_robot_state_publisher)">
+    <param name="/$(arg namespace)/robot_description"
+          command="$(find xacro)/xacro.py '$(find multisense_description)/urdf/multisense$(arg sensor)/standalone.urdf.xacro' name:=$(arg namespace)"/>
+    <node pkg="robot_state_publisher" type="state_publisher" name="$(arg namespace)_state_publisher">
+      <param name="publish_frequency" type="double" value="50.0" />
+      <remap from="joint_states" to="/$(arg namespace)/joint_states" />
+      <remap from="robot_description" to="/$(arg namespace)/robot_description" />
+    </node>
+  </group>
+
+  <!-- ROS Driver -->
+   <node pkg="multisense_ros" ns="$(arg namespace)" type="ros_driver" name="$(arg namespace)_driver" output="screen">
+     <param name="sensor_ip"   value="$(arg ip_address)" />
+     <param name="sensor_mtu"  value="$(arg mtu)" />
+     <param name="tf_prefix"  value="$(arg namespace)" />
+     <remap from="robot_description" to="/$(arg namespace)/robot_description" />
+  </node>
+
+  <!-- Color Laser PointCloud Publisher -->
+   <node pkg="multisense_ros" ns="$(arg namespace)" type="color_laser_publisher" name="$(arg namespace)_color_laser_publisher" output="screen">
+      <remap from="image_rect_color" to="/$(arg namespace)/left/image_rect_color" />
+      <remap from="lidar_points2" to="/$(arg namespace)/lidar_points2" />
+      <remap from="camera_info" to="/$(arg namespace)/left/image_rect_color/camera_info" />
+      <remap from="robot_description" to="/$(arg namespace)/robot_description" />
+  </node>
+
+   <node name="set_motor_speed" pkg="dynamic_reconfigure" type="dynparam"  args="set --timeout=10 /multisense motor_speed 2.5" />
+    <node name="set_resolution" pkg="dynamic_reconfigure" type="dynparam"  args="set --timeout=10 /multisense resolution 1024x544x64" />
+<!--    <node name="transform_provider" pkg="transform_provider" type="transform_provider_node" /> -->
+
+
+    <node name="multisense_static_tf_br" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0  multisense/head_root multisense/head 0.1" />
+
+</launch>
