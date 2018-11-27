@@ -1,0 +1,7 @@
+<launch>
+  <arg name="use_local_build" default="true" />
+
+  <node name="IHMCAtlasGradleWarmup" pkg="ihmc_ros_java_adapter" type="gradlew" args="warmUp -x runJavaDelegate -PuseLocal=$(arg use_local_build) -Pyaml=$(find ihmc_atlas_ros)/configurations/gazebo.yaml" required="true" output="screen" cwd="node">
+  </node>
+  
+</launch>
