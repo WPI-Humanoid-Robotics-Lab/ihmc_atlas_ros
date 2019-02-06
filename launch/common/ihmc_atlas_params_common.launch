@@ -9,4 +9,11 @@
   <rosparam param="/ihmc_ros/atlas/left_arm_joint_names">
     ['l_arm_shz', 'l_arm_shx', 'l_arm_ely', 'l_arm_elx', 'l_arm_wry', 'l_arm_wrx', 'l_arm_wry2']
   </rosparam>
+
+  <rosparam param="/ihmc_ros/atlas/chest_joint_names">
+    ['back_bkz', 'back_bky', 'back_bkx']
+  </rosparam>
+
+
+
 </launch>
