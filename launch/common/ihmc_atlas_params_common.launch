@@ -2,8 +2,8 @@
   <param name="/ihmc_ros/atlas/right_foot_frame_name" value="r_foot" type="string" />
   <param name="/ihmc_ros/atlas/left_foot_frame_name" value="l_foot" type="string" />
 
-  <param name="/ihmc_ros/atlas/right_ee_frame_name" value="r_palm" type="string" />
-  <param name="/ihmc_ros/atlas/left_ee_frame_name" value="l_palm" type="string" />
+  <param name="/ihmc_ros/atlas/right_ee_frame_name" value="r_end_eff" type="string" />
+  <param name="/ihmc_ros/atlas/left_ee_frame_name" value="l_end_eff" type="string" />
 
   <rosparam param="/ihmc_ros/atlas/right_arm_joint_names">
     ['r_arm_shz', 'r_arm_shx', 'r_arm_ely', 'r_arm_elx', 'r_arm_wry', 'r_arm_wrx', 'r_arm_wry2']
