@@ -1276,6 +1276,15 @@
     <parent link="l_hand"/>
     <child link="l_palm"/>
   </joint>
+
+  <!-- Attaching a static frame from l_palm for grasping. -->
+  <link name="l_end_eff"/>
+  <joint name="l_robotiq_end_eff_virtual_joint" type="fixed">
+    <origin rpy="0 0 1.5708" xyz="0.0 0.1 0.0"/>
+    <parent link="l_palm"/>
+    <child link="l_end_eff"/>
+  </joint>
+
   <!-- Link list -->
   <!-- Link 0 -->
   <link name="l_finger_1_link_0">
@@ -3073,6 +3082,15 @@
     <parent link="r_hand"/>
     <child link="r_palm"/>
   </joint>
+
+  <!-- Attaching a static frame from l_palm for grasping. -->
+  <link name="r_end_eff"/>
+  <joint name="r_robotiq_end_eff_virtual_joint" type="fixed">
+    <origin rpy="3.14159265 0.0 1.57079633" xyz="0.0 0.1 0.0"/>
+    <parent link="r_palm"/>
+    <child link="r_end_eff"/>
+  </joint>
+
   <!-- Link list -->
   <!-- Link 0 -->
   <link name="r_finger_1_link_0">
