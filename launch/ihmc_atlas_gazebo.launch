@@ -56,6 +56,7 @@
 
   <node name="hand_controllers" pkg="controller_manager" type="spawner" args="hands_joint_state_controller left_hand_controller right_hand_controller" ns="/reflex_hands">
   </node>
+
   <!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
     <param name="use_gui" value="FALSE"/>
     <rosparam param="/source_list">[/ihmc_ros/atlas/output/joint_states, /reflex_hands/joint_states]</rosparam>
@@ -64,4 +65,9 @@
   <node name="GazeboControllerFactory" pkg="ihmc_ros_java_adapter" type="gradlew" args="runJava -Dus.ihmc.networkParameterFile=$(arg ihmc_network_file) -PuseLocal=$(arg use_local_build) -Pyaml=$(find ihmc_atlas_ros)/configurations/gazebo.yaml -PprogramArgs=-m,$(arg ihmc_model)" required="true" output="screen" cwd="node">
   </node>
   <node name="hand_command_relay" pkg="reflex_hand_model" type="hand_command_relay" />
+
+  <node pkg="tf" type="static_transform_publisher" name="left_hand_tf" args="-0.00125 -0.15 0.0 0 1.57295 1.57295  /l_hand /l_palm  1"/>
+  <node pkg="tf" type="static_transform_publisher" name="right_hand_tf" args="-0.00125 -0.15 0.0 -1.57295 1.57295 0  /r_hand /r_palm  1"/>
+
+
 </launch>
