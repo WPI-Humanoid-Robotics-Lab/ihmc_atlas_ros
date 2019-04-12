@@ -10,6 +10,7 @@
   <arg name="use_local_build" default="true" />
   <arg name="ihmc_network_file" default="$(find ihmc_atlas_ros)/configurations/IHMCNetworkParametersSim.ini" />
   <arg name="ihmc_model" default="ATLAS_UNPLUGGED_V5_NO_HANDS" />
+  <arg name="description_model" default="$(find ihmc_atlas_ros)/urdf/atlas_unplugged_v5_no_hands.urdf" />
 
   <param name="/atlas/time_to_unpin" type="double" value="0.5"/>
   <param name="/atlas/startup_mode" type="string" value="standing"/>
@@ -19,8 +20,11 @@
   <rosparam file="$(find ihmc_gazebo)/yaml/effort_controller_config.yaml" command="load"/>
 
   <!-- Robot Description -->
-  <param name="/$(arg robot_name)/robot_description" command="$(find xacro)/xacro.py '$(find ihmc_gazebo)/urdf/ihmc_atlas_v5.urdf.xacro'" />
-  <param name="/robot_description" command="$(find xacro)/xacro.py '$(find ihmc_gazebo)/urdf/ihmc_atlas_v5.urdf.xacro'" />
+<!--  <param name="/$(arg robot_name)/robot_description" command="$(find xacro)/xacro.py '$(find ihmc_gazebo)/urdf/ihmc_atlas_v5.urdf.xacro'" />
+  <param name="/robot_description" command="$(find xacro)/xacro.py '$(find ihmc_gazebo)/urdf/ihmc_atlas_v5.urdf.xacro'" /> -->
+  <param name="/$(arg robot_name)/robot_description" textfile="$(arg description_model)" />
+  <param name="/robot_description" textfile="$(arg description_model)" />
+
   <param name="robot_initial_pose/x"     value="0.10" type="double"/>
   <param name="robot_initial_pose/y"     value="-0.45" type="double"/>
   <param name="robot_initial_pose/z"     value="0.92" type="double"/>

@@ -1277,6 +1277,35 @@
 	<origin rpy="3.141592 -1.57079 0" xyz="-0.00179 -0.168 0.0" />
   </xacro:robotiq_hand>
   -->
+<link name="l_palm"/>
+  <joint name="l_robotiq_hand_joint" type="fixed">
+    <origin rpy="3.14159 3.14159 3.14159" xyz="-0.00125 0.17 0.01"/>
+    <parent link="l_hand"/>
+    <child link="l_palm"/>
+  </joint>
+  <!-- Attaching a static frame from l_palm for grasping. -->
+  <link name="l_end_eff"/>
+  <joint name="l_robotiq_end_eff_virtual_joint" type="fixed">
+    <origin rpy="0 0 1.5708" xyz="0.0 0.1 0.0"/>
+    <parent link="l_palm"/>
+    <child link="l_end_eff"/>
+  </joint>
+
+  <!-- joint attaching parent link to robotiq hand -->
+  <link name="r_palm"/>
+  <joint name="r_robotiq_hand_joint" type="fixed">
+    <origin rpy="3.14159 0 0" xyz="-0.00125 -0.17 0.01"/>
+    <parent link="r_hand"/>
+    <child link="r_palm"/>
+  </joint>
+  <!-- Attaching a static frame from l_palm for grasping. -->
+  <link name="r_end_eff"/>
+  <joint name="r_robotiq_end_eff_virtual_joint" type="fixed">
+    <origin rpy="3.14159265 0.0 1.57079633" xyz="0.0 0.1 0.0"/>
+    <parent link="r_palm"/>
+    <child link="r_end_eff"/>
+  </joint>
+
   <gazebo>
     <!-- robot model offset -->
     <pose>0 0 0.93 0 0 0</pose>
