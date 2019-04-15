@@ -1,0 +1,14 @@
+<launch>
+
+    <arg name="ihmc_network_file" default="$(find ihmc_atlas_ros)/configurations/IHMCNetworkParametersSim.ini" />
+    <arg name="use_local_build" default="true" />
+    <arg name="ihmc_model" default="ATLAS_UNPLUGGED_V5_NO_HANDS" />
+    <!-- <arg name="ihmc_model" default="ATLAS_UNPLUGGED_V5_DUAL_ROBOTIQ" /> -->
+
+
+    <node name="GazeboControllerFactory" pkg="ihmc_ros_java_adapter" type="gradlew" args="runJava -Dus.ihmc.networkParameterFile=$(arg ihmc_network_file) -PuseLocal=$(arg use_local_build) -Pyaml=$(find ihmc_atlas_ros)/configurations/gazebo.yaml -PprogramArgs=-m,$(arg ihmc_model)" required="true" output="screen" cwd="node">
+    </node>
+
+    <!-- <node name="GazeboDisparityFix" pkg="tough_perception_common" type="gazebo_disparity_converter" /> -->
+
+</launch>
