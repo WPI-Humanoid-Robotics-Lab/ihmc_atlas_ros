@@ -7,6 +7,8 @@
   <arg name="starting_location" default="DEFAULT" />
   <arg name="tf_prefix" default="NONE" />
   <arg name="scs_args" default="" />
+ <arg name="gradle_args"             default="" />
+
 
   <include file="$(find ihmc_ros_common)/launch/robot_description_common.launch">
     <arg name="robot_name" value="atlas" />
@@ -15,6 +17,6 @@
 
   <include file="$(find ihmc_atlas_ros)/launch/common/ihmc_atlas_params_common.launch" />
 
-  <node name="IHMCAtlasAPISimulatorDemo01" pkg="ihmc_ros_java_adapter" type="gradlew" args="runJava -Dus.ihmc.networkParameterFile=$(arg ihmc_network_file) -PuseLocal=$(arg use_local_build) -Pyaml=$(find ihmc_atlas_ros)/configurations/demo01.yaml -PprogramArgs=-m,$(arg ihmc_model),-s,$(arg starting_location),--tfPrefix,$(arg tf_prefix),$(arg scs_args)" required="true" output="screen" cwd="node">
+  <node name="IHMCAtlasAPISimulatorDemo01" pkg="ihmc_ros_java_adapter" type="gradlew" args="$(arg gradle_args) runJava -Dus.ihmc.networkParameterFile=$(arg ihmc_network_file) -PuseLocal=$(arg use_local_build) -Pyaml=$(find ihmc_atlas_ros)/configurations/demo01.yaml -PprogramArgs=-m,$(arg ihmc_model),-s,$(arg starting_location),--tfPrefix,$(arg tf_prefix),$(arg scs_args)" required="true" output="screen" cwd="node">
   </node>
 </launch>
