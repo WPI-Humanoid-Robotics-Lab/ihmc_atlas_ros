@@ -13,6 +13,8 @@
   <arg name="ihmc_model" default="ATLAS_UNPLUGGED_V5_DUAL_ROBOTIQ" />
   <arg name="description_model" default="$(find ihmc_gazebo)/urdf/atlas_v5_reflex_hands.urdf" />
 
+  <arg name="gradle_args" default="" />
+
   <param name="/atlas/time_to_unpin" type="double" value="0.5"/>
   <param name="/atlas/startup_mode" type="string" value="standing"/>
 
@@ -62,7 +64,7 @@
     <rosparam param="/source_list">[/ihmc_ros/atlas/output/joint_states, /reflex_hands/joint_states]</rosparam>
     <remap from="joint_states" to="/$(arg robot_name)/joint_states" />
   </node> -->
-  <node name="GazeboControllerFactory" pkg="ihmc_ros_java_adapter" type="gradlew" args="runJava -Dus.ihmc.networkParameterFile=$(arg ihmc_network_file) -PuseLocal=$(arg use_local_build) -Pyaml=$(find ihmc_atlas_ros)/configurations/gazebo.yaml -PprogramArgs=-m,$(arg ihmc_model)" required="true" output="screen" cwd="node">
+  <node name="GazeboControllerFactory" pkg="ihmc_ros_java_adapter" type="gradlew" args="$(arg gradle_args) runJava -Dus.ihmc.networkParameterFile=$(arg ihmc_network_file) -PuseLocal=$(arg use_local_build) -Pyaml=$(find ihmc_atlas_ros)/configurations/gazebo.yaml -PprogramArgs=-m,$(arg ihmc_model)" required="true" output="screen" cwd="node">
   </node>
   <node name="hand_command_relay" pkg="reflex_hand_model" type="hand_command_relay" />
 
